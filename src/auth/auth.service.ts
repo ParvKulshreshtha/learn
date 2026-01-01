@@ -21,7 +21,7 @@ export class AuthService {
       ...registerUserDto,
       password: hash,
     });
-    const payload = { sub: user._id };
+    const payload = { sub: user._id, role:user.role };
     const token = await this.jwtService.signAsync(payload);
     console.log(token);
     return { token };
@@ -40,7 +40,7 @@ export class AuthService {
       throw new UnauthorizedException('Invalid email or password');
     }
 
-    const payload = { sub: user._id };
+    const payload = { sub: user._id, role: user.role };
     const token = await this.jwtService.signAsync(payload);
     return {
       message: 'Login successful',
